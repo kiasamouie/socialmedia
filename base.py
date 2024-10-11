@@ -14,6 +14,7 @@ class OAuth2Handler:
         self.access_token = None
 
     def load_token(self):
+        print(os.path.exists(self.token_file))
         if os.path.exists(self.token_file):
             with open(self.token_file, 'r') as f:
                 return json.load(f)
@@ -75,7 +76,7 @@ class OAuth2Handler:
         return self.authorize()
 
     def authorize(self):
-        auth_url = self.get_authorization_url(scope=["user_profile", "user_media"])
+        auth_url = self.get_authorization_url(scope=["instagram_basic","instagram_content_publish"])
         print(f"Go to this URL to authorize the app: {auth_url}")
         authorization_code = input("Enter the authorization code from the URL: ").strip()
         return self.fetch_access_token(authorization_code)
