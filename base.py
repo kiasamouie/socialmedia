@@ -4,7 +4,7 @@ import requests
 import time
 
 class OAuth2Handler:
-    def __init__(self, client_id, client_secret, auth_url, token_url, redirect_uri, token_file='access_token.json'):
+    def __init__(self, client_id, client_secret, auth_url, token_url, redirect_uri, token_file):
         self.client_id = client_id
         self.client_secret = client_secret
         self.auth_url = auth_url
@@ -67,16 +67,16 @@ class OAuth2Handler:
         }
         return f"{self.auth_url}?{requests.compat.urlencode(params)}"
 
-    def get_or_refresh_token(self):
+    def get_or_refresh_token(self, scope):
         token_data = self.load_token()
         if token_data:
             if self.is_token_expired(token_data):
                 return self.refresh_access_token(f"{self.token_url}/refresh", token_data['refresh_token'])
             return token_data
-        return self.authorize()
+        return self.authorize(scope)
 
-    def authorize(self):
-        auth_url = self.get_authorization_url(scope=["instagram_basic","instagram_content_publish"])
+    def authorize(self, scope):
+        auth_url = self.get_authorization_url(scope=scope)
         print(f"Go to this URL to authorize the app: {auth_url}")
         authorization_code = input("Enter the authorization code from the URL: ").strip()
         return self.fetch_access_token(authorization_code)
