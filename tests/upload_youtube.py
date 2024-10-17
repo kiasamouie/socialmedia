@@ -1,7 +1,9 @@
 import os
-from youtube import YouTubeAPI
+import sys
 from dotenv import load_dotenv
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from socials.youtube import YouTubeAPI
 load_dotenv()
 
 client_id = os.getenv('YOUTUBE_CLIENT_ID')

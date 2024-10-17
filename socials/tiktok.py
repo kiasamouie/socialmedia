@@ -1,6 +1,6 @@
 import requests
 import time
-from base import OAuth2Handler
+from utils.auth import OAuth2Handler
 
 class TikTokAPI:
     def __init__(self, client_id, client_secret, account_id, auth_url, token_url, redirect_uri, token_file='instagram_token.json'):
