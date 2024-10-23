@@ -6,4 +6,3 @@ __pycache__
 test.py
 
 *.sh
-*_token.json
