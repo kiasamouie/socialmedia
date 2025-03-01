@@ -1,8 +1,13 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 def readme():
-    with open("README.md") as f:
+    with open("README.md", encoding="utf-8") as f:
         return f.read()
+
+def read_requirements():
+    """Reads requirements.txt and returns a list of dependencies."""
+    with open("requirements.txt", encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
 setup(
     name="socialmedia",
@@ -22,7 +27,7 @@ setup(
     author_email="thekiadoe@gmail.com",
     keywords="socialmedia",
     license="MIT",
-    packages=["instagram"],
-    install_requires=[],
+    packages=find_packages(exclude=["tests", "docs"]),
+    install_requires=read_requirements(),
     include_package_data=True,
 )

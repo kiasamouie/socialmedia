@@ -16,8 +16,11 @@ redirect_uri = os.getenv('INSTAGRAM_REDIRECT_URI')
 instagram_api = InstagramAPI(client_id, client_secret, account_id, auth_url, token_url, redirect_uri)
 
 image_url = 'https://i1.sndcdn.com/avatars-Atwa0P5NDwgJpIcb-gkVkkg-t500x500.jpg'
+video_url = r"https://samui-music.com/videos/output.mp4"
 caption = 'Back on TheKiaDoe vibes'
-success = instagram_api.upload_and_publish(image_url, caption)
+
+success = instagram_api.upload_and_publish(video_url, caption, media_type="video")
+# success = instagram_api.upload_and_publish(image_url, caption)
 
 if success:
     print("Image uploaded and published successfully.")

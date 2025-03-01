@@ -3,6 +3,7 @@ import sys
 import requests
 import magic  # python-magic for MIME type detection
 from dotenv import load_dotenv
+from utils.utils import Utils
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from socials.youtube import YouTubeAPI
@@ -44,22 +45,8 @@ description = 'This is a test video uploaded via YouTube API.'
 category_id = '22'  # YouTube category ID (e.g., 22 for 'People & Blogs')
 tags = ['test', 'video', 'upload']
 
-# Download the video from the URL to a local file for YouTube and detect its type
-def download_and_detect_file(url, local_path):
-    response = requests.get(url, stream=True)
-    if response.status_code == 200:
-        with open(local_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
-        # Detect the media type using python-magic
-        mime = magic.Magic(mime=True)
-        content_type = mime.from_file(local_path)
-        print(content_type)
-        return content_type
-    return None
-
 # Detect the type and process
-content_type = download_and_detect_file(video_url, local_video_file)
+content_type = Utils.download_and_detect_file(video_url, local_video_file)
 
 if content_type:
     if content_type.startswith('video'):
